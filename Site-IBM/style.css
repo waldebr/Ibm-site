@@ -1,0 +1,210 @@
+/* --- Estilos Gerais --- */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+h1, h2 {
+    color: #2c3e50;
+}
+
+main {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    flex: 1;
+}
+
+/* --- Navbar --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #881a1a;
+    color: white;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    position: relative;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to bottom, #881a1a, #6f1515);
+    border-width: 0 0 5px 0;
+    border-style: solid;
+}
+
+.nav-links-group {
+    display: flex;
+    flex: 1;
+    align-items: center;
+}
+
+.left-links {
+    justify-content: flex-start;
+}
+
+.right-links {
+    justify-content: flex-end;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    padding: 0 1rem;
+    transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+    color: #ffd700;
+}
+
+.navbar .logo img {
+    height: 40px;
+    width: auto;
+    transition: transform 0.3s ease;
+}
+
+.navbar .logo img:hover {
+    transform: scale(1.05);
+}
+
+.navbar .nav-links-group img {
+    height: 25px;
+    width: auto;
+    vertical-align: middle;
+    transition: filter 0.3s ease;
+}
+
+.navbar .nav-links-group a:hover img {
+    filter: brightness(0.8);
+}
+
+/* --- Seções de Conteúdo --- */
+/*.hero-section {
+    background-color: #ffffff;
+    text-align: center;
+    padding: 5rem 2rem;
+    margin-bottom: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.hero-section h1 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+}
+
+.content-section {
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+*/
+
+
+/* --- Seções de Conteúdo com Borda Animada --- */
+.hero-section, .content-section {
+    position: relative;
+    z-index: 1; /* Garante que o conteúdo fique na frente da borda */
+    overflow: hidden;
+    padding: 2rem; /* Adiciona espaçamento interno para o conteúdo */
+    margin-bottom: 2rem;
+    border-radius: 8px;
+}
+
+.hero-section {
+    padding: 5rem 2rem; /* Mantém o padding original para a seção hero */
+    text-align: center;
+}
+
+/* O pseudo-elemento que cria a borda animada */
+.hero-section::before, .content-section::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    background: linear-gradient(45deg, #ff0000, #ff8000, #ffff00, #00ff00, #00ffff, #0000ff, #8000ff);
+    background-size: 400% 400%;
+    z-index: -1; /* Posiciona a borda atrás do conteúdo */
+    border-radius: 13px; /* Raio da borda maior para o efeito de contorno */
+    animation: color-flow 10s ease-in-out infinite;
+}
+
+/* O conteúdo interno do bloco */
+.hero-section > *, .content-section > * {
+    background-color: #ffffff; /* Fundo do conteúdo interno */
+    padding: 2rem; /* Ajusta o padding para o conteúdo interno */
+    border-radius: 8px;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.hero-section h1 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+}
+
+/* Definição da Animação */
+@keyframes color-flow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* O restante do seu código... */
+
+
+
+
+/* --- Rodapé --- */
+footer {
+    text-align: center;
+    padding: 1.5rem;
+    background-color: #2c3e50;
+    color: white;
+    margin-top: 2rem;
+}
+
+/* --- Responsividade (para telas menores) --- */
+@media (max-width: 768px) {
+    /* As regras abaixo foram removidas ou ajustadas */
+    /* para que a navbar não mude em telas pequenas */
+    .navbar {
+        /* flex-direction: column; -- REMOVIDO */
+        /* padding: 1rem; -- AJUSTADO */
+        padding: 0.5rem 1rem;
+    }
+
+    .nav-links-group {
+        /* width: 100%; -- REMOVIDO */
+        /* justify-content: center; -- REMOVIDO */
+        /* margin-bottom: 1rem; -- REMOVIDO */
+    }
+
+    .navbar .logo {
+        /* margin-bottom: 1rem; -- REMOVIDO */
+    }
+
+    .hero-section {
+        padding: 3rem 1rem;
+    }
+}
