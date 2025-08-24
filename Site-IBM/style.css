@@ -15,10 +15,9 @@ h1, h2 {
     color: #2c3e50;
 }
 
+/* Remover largura máxima do 'main' para permitir que o carrossel se estenda */
 main {
-    max-width: 1100px;
     margin: 2rem auto;
-    padding: 0 1rem;
     flex: 1;
 }
 
@@ -84,78 +83,45 @@ main {
     filter: brightness(0.8);
 }
 
-/* --- Seções de Conteúdo --- */
-/*.hero-section {
-    background-color: #ffffff;
-    text-align: center;
-    padding: 5rem 2rem;
-    margin-bottom: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.hero-section h1 {
-    font-size: 3rem;
-    margin-bottom: 0.5rem;
-}
-
-.hero-section p {
-    font-size: 1.2rem;
-    color: #7f8c8d;
-}
-
-.content-section {
-    padding: 2rem;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-*/
-
-
-/* --- Seções de Conteúdo com Borda Animada --- */
-.hero-section, .content-section {
+/* --- Seções de Conteúdo com Borda Animada (agora fixa e sutil) --- */
+.hero-section {
     position: relative;
-    z-index: 1; /* Garante que o conteúdo fique na frente da borda */
-    overflow: hidden;
-    padding: 2rem; /* Adiciona espaçamento interno para o conteúdo */
+    padding: 2rem;
     margin-bottom: 2rem;
     border-radius: 8px;
+    background-color: #ffffff;
+    border: 1px solid #c80000;
+    /* Aplica o brilho fixo e sutil */
+    box-shadow: 0 0 10px 5px rgba(255, 0, 0, 0.5);
+    
+    /* Adicionando centralização e largura máxima para o 'hero-section' */
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .hero-section {
-    padding: 5rem 2rem; /* Mantém o padding original para a seção hero */
-    text-align: center;
+    padding: 5rem 2rem;
 }
 
-/* O pseudo-elemento que cria a borda animada */
-.hero-section::before, .content-section::before {
-    content: '';
-    position: absolute;
-    top: -5px;
-    left: -5px;
-    right: -5px;
-    bottom: -5px;
-    background: linear-gradient(45deg, #ff0000, #ff8000, #ffff00, #00ff00, #00ffff, #0000ff, #8000ff);
-    background-size: 400% 400%;
-    z-index: -1; /* Posiciona a borda atrás do conteúdo */
-    border-radius: 13px; /* Raio da borda maior para o efeito de contorno */
-    animation: color-flow 10s ease-in-out infinite;
+/* Estilo para organizar o conteúdo com imagem e texto lado a lado */
+.hero-content {
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center;
+    gap: 20px;
 }
 
-/* O conteúdo interno do bloco */
-.hero-section > *, .content-section > * {
-    background-color: #ffffff; /* Fundo do conteúdo interno */
-    padding: 2rem; /* Ajusta o padding para o conteúdo interno */
-    border-radius: 8px;
-    height: 100%;
-    width: 100%;
-    box-sizing: border-box;
+.text-and-button {
+    text-align: left;
+    max-width: 50%; /* Limita a largura do bloco de texto */
 }
 
 .hero-section h1 {
     font-size: 3rem;
     margin-bottom: 0.5rem;
+    color: #881a1a;
+    text-transform: uppercase;
 }
 
 .hero-section p {
@@ -163,17 +129,112 @@ main {
     color: #7f8c8d;
 }
 
-/* Definição da Animação */
-@keyframes color-flow {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+/* Estilo para a imagem dentro do hero-content */
+.image-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    display: block; /* Garante que a imagem se comporta bem em layouts flex */
 }
 
-/* O restante do seu código... */
+/* Estilo para o Botão "Matricule-se" */
+.cta-button {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    background-color: #881a1a;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
 
+.cta-button:hover {
+    background-color: #6f1515;
+    transform: translateY(-2px);
+}
 
+/* A animação glow-red foi removida para o efeito fixo */
+/* @keyframes glow-red {
+    from {
+        box-shadow: 0 0 10px 5px rgba(255, 0, 0, 0.5);
+    }
+    to {
+        box-shadow: 0 0 20px 10px rgba(255, 0, 0, 0.8);
+    }
+} */
 
+/* --- Estilo para o Carrossel --- */
+.carousel-section {
+    width: 100%;
+    margin-top: 3rem; /* Espaçamento superior e inferior */
+}
+
+/* Estilo para os indicadores do carrossel */
+.carousel-indicators [data-bs-slide-to] {
+    background-color: #881a1a; /* Cor de fundo vermelha igual à navbar */
+}
+
+/* Mudar a cor do ícone de navegação "anterior" */
+.carousel-control-prev-icon {
+    /* SVG para a seta que aponta para a esquerda */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23881a1a'%3E%3Cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3E%3C/svg%3E");
+}
+
+/* Mudar a cor do ícone de navegação "próximo" */
+.carousel-control-next-icon {
+    /* SVG para a seta que aponta para a direita */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23881a1a'%3E%3Cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+}
+
+/* --- Estilo para a Galeria de Instrumentos --- */
+.instrument-section {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+
+/* Aplica o estilo de borda fixa e sutil aos cards */
+.instrument-section .card {
+    border: 1px solid #c80000;
+    box-shadow: 0 0 10px 5px rgba(255, 0, 0, 0.5);
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.instrument-section .card-title {
+    color: #881a1a;
+    font-weight: bold;
+}
+
+.instrument-section .card ul {
+    list-style-type: none; /* Remove o marcador de lista padrão */
+    padding-left: 0; /* Remove o padding padrão */
+}
+
+.instrument-section .card li {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 0.5rem;
+}
+
+.instrument-section .card a.btn {
+    color: #881a1a;
+    border-color: #881a1a;
+}
+
+.instrument-section .card a.btn:hover {
+    color: white;
+    background-color: #881a1a;
+}
+
+/* Para o ícone de bolinha */
+.bi-circle-fill {
+    color: #881a1a;
+}
 
 /* --- Rodapé --- */
 footer {
@@ -186,25 +247,21 @@ footer {
 
 /* --- Responsividade (para telas menores) --- */
 @media (max-width: 768px) {
-    /* As regras abaixo foram removidas ou ajustadas */
-    /* para que a navbar não mude em telas pequenas */
     .navbar {
-        /* flex-direction: column; -- REMOVIDO */
-        /* padding: 1rem; -- AJUSTADO */
         padding: 0.5rem 1rem;
-    }
-
-    .nav-links-group {
-        /* width: 100%; -- REMOVIDO */
-        /* justify-content: center; -- REMOVIDO */
-        /* margin-bottom: 1rem; -- REMOVIDO */
-    }
-
-    .navbar .logo {
-        /* margin-bottom: 1rem; -- REMOVIDO */
     }
 
     .hero-section {
         padding: 3rem 1rem;
+    }
+
+    /* Em telas menores, o conteúdo fica um embaixo do outro */
+    .hero-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    .text-and-button {
+        max-width: 100%;
+        text-align: center;
     }
 }
