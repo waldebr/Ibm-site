@@ -305,3 +305,186 @@ footer {
 .news-overlay p {
     margin: 0;
 }
+
+/* --- Seção de Depoimentos (Testimonials) - Rolagem Automática --- */
+.testimonials-section h2 {
+    font-weight: bold;
+    color: #881a1a;
+}
+
+.testimonials-scroll-container {
+    display: flex;
+    gap: 2rem;
+    overflow-x: hidden;
+    white-space: nowrap;
+    animation: scroll-left 40s linear infinite;
+    padding: 1rem 0;
+    width: max-content; /* Permite que o container se expanda para caber todo o conteúdo */
+    
+    /* Para quando o mouse passar por cima, a rolagem parar */
+    &:hover {
+        animation-play-state: paused;
+    }
+}
+
+.testimonial-card {
+    background-color: #fff;
+    border: 1px solid #c80000;
+    border-radius: 8px;
+    box-shadow: 0 0 10px 5px rgba(255, 0, 0, 0.5);
+    position: relative;
+    padding: 1rem;
+    flex: 0 0 auto;
+    width: 48%; /* Um pouco menos de 50% para garantir que dois caibam e o espaço não fique estranho */
+    max-width: 500px;
+}
+
+/* Estilo para o ícone de aspas no canto superior */
+.testimonial-card .quote-icon {
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    font-size: 2.5rem;
+    color: #881a1a;
+}
+
+.testimonial-card p {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 1rem;
+    padding-top: 2rem;
+    font-style: italic;
+    white-space: normal;
+}
+
+.testimonial-card img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #881a1a;
+}
+
+.testimonial-card h6 {
+    color: #881a1a;
+    font-weight: bold;
+    margin-top: 0.5rem;
+}
+
+.testimonial-card .text-muted {
+    font-size: 0.9rem;
+}
+
+/* A MÁGICA FINAL ACONTECE AQUI! */
+@keyframes scroll-left {
+    0% {
+        transform: translateX(0);
+    }
+    /* Agora a animação move 50% do tamanho total do container, o que é a largura exata do primeiro conjunto de cards */
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* Responsividade - Ajuste para telas menores */
+@media (max-width: 768px) {
+    .testimonial-card {
+        width: 100%; /* Em telas menores, mostra um card por vez */
+    }
+
+    @keyframes scroll-left {
+        100% {
+            /* Rola a largura de um card inteiro em telas pequenas para continuar o loop. */
+            transform: translateX(calc(-100% - 2rem));
+        }
+    }
+}
+
+/* --- Seção de Parceiros --- */
+.partners-section h2 {
+    font-weight: bold;
+    color: #881a1a;
+}
+
+.partners-wrapper {
+    overflow: hidden; /* Esconde o conteúdo que não está na tela */
+}
+
+.partners-container {
+    display: flex;
+    width: 200%; /* Contém os dois slides */
+    transition: transform 0.5s ease-in-out;
+}
+
+.partners-slide {
+    flex: 0 0 50%; /* Faz com que cada slide ocupe 50% do container */
+}
+
+.partners-section img {
+    height: 100px; /* Mantém a altura para todas as imagens */
+    width: 100px; /* Define a largura igual à altura para formar um círculo */
+    object-fit: cover; /* Garante que a imagem preencha o círculo sem distorcer */
+    border-radius: 50%; /* Transforma a imagem em um círculo */
+  
+    transition: transform 0.3s ease;
+}
+
+
+.partners-section .text-muted {
+    color: #555 !important;
+    font-weight: bold;
+}
+
+/* Estilos para os pontinhos em degradê de vermelho */
+.partners-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.partners-dots .dot {
+    height: 12px;
+    width: 12px;
+    background-color: #881a1a; /* Cor padrão, um vermelho mais escuro */
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+    opacity: 0.5;
+}
+
+.partners-dots .dot.active {
+    background-color: #c80000; /* Cor do pontinho ativo, um vermelho mais vivo */
+    opacity: 1;
+}
+
+/* --- Seção de Contatos --- */
+.contact-section .contact-card {
+    background-color: #fff;
+    border: 1px solid #c80000;
+    border-radius: 8px;
+    box-shadow: 0 0 10px 5px rgba(255, 0, 0, 0.5);
+    transition: transform 0.3s ease;
+}
+
+.contact-section .contact-card:hover {
+    transform: translateY(-5px);
+}
+
+.contact-section .contact-card i {
+    color: #881a1a;
+}
+
+/* --- Seção de Escolas Disponíveis --- */
+.schools-section h2 {
+    font-weight: bold;
+    color: #881a1a;
+}
+
+.schools-section .map-container {
+    width: 100%;
+    height: 500px;
+    border: 1px solid #c80000;
+    box-shadow: 0 0 10px 5px rgba(255, 0, 0, 0.5);
+    border-radius: 8px;
+}
