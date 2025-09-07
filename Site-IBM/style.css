@@ -239,8 +239,9 @@ main {
 /* --- Rodapé --- */
 footer {
     text-align: center;
+    align-items: center;
     padding: 1.5rem;
-    background-color: #2c3e50;
+    background-color: #7c1616;
     color: white;
     margin-top: 2rem;
 }
@@ -487,4 +488,132 @@ footer {
     border: 1px solid #c80000;
     box-shadow: 0 0 10px 5px rgba(255, 0, 0, 0.5);
     border-radius: 8px;
+}
+
+/* --- Seção de Planos --- */
+.plans-section h2 {
+    font-weight: bold;
+    color: #881a1a;
+}
+
+.plan-card {
+    background-color: #fff;
+    border: 1px solid #c80000;
+    box-shadow: 0 0 10px 5px rgba(255, 0, 0, 0.5);
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+    padding-bottom: 2rem; /* Espaçamento extra embaixo */
+}
+
+.plan-card:hover {
+    transform: translateY(-5px);
+}
+
+.plan-card h4 {
+    color: #881a1a;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.plan-card .plan-description {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    min-height: 40px; /* Para manter a altura consistente entre os cards */
+}
+
+/* O SEGREDO ESTÁ AQUI! */
+.plan-card .price-box {
+    background-color: #881a1a;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    display: flex; /* Transforma em um container flexível */
+    justify-content: center; /* Centraliza o conteúdo */
+    align-items: center;
+    width: 100%; /* Faz o elemento ocupar toda a largura */
+    gap: 10px;
+}
+
+.plan-card .price-box span {
+    font-size: 0.9rem;
+    font-weight: normal;
+}
+
+.plan-card .price-box .price {
+    color: white; /* Preço branco dentro da caixa */
+    font-weight: bold;
+    font-size: 2rem; /* Tamanho do preço */
+    margin-bottom: 0; /* Remover margem padrão do h3 */
+}
+
+.plan-card .btn-enroll {
+    background-color: #c80000; /* Vermelho mais vibrante para o botão */
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 0.75rem 2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.plan-card .btn-enroll:hover {
+    background-color: #a00000;
+}
+
+.plan-card .plan-benefits {
+    margin-top: 1.5rem;
+    color: #444;
+}
+
+.plan-card .plan-benefits h6 {
+    font-weight: bold;
+    color: #881a1a;
+    margin-bottom: 0.8rem;
+}
+
+.plan-card .plan-benefits ul {
+    padding-left: 0;
+    list-style: none; /* Remove o marcador padrão da lista */
+}
+
+.plan-card .plan-benefits ul li {
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: flex-start;
+}
+
+.plan-card .plan-benefits ul li i {
+    color: #c80000; /* Ícone de check vermelho */
+    margin-right: 0.5rem;
+    font-size: 1.1rem;
+}
+
+/* --- Seção de Dúvidas Frequentes (FAQ) --- */
+.accordion-button {
+    background-color: #881a1a !important;
+    color: white !important;
+    border-color: #c80000 !important;
+    font-weight: bold;
+    border-radius: 8px !important;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: #c80000 !important;
+    color: white !important;
+}
+
+.accordion-item {
+    border: none;
+    margin-bottom: 10px;
+}
+
+.accordion-body {
+    background-color: #f8f8f8;
+    color: #333;
+    border: 1px solid #eee;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
 }
