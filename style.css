@@ -1,0 +1,187 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(to right, #2D0A09, #93221F); /* fundo degradê escuro */
+}
+
+/* Container */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* Card */
+.form-box {
+  display: flex;
+  width: 950px;
+  height: 550px;
+  background: #fff;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0px 0px 20px rgba(0,0,0,0.25);
+}
+
+/* Lado esquerdo */
+.welcome {
+  flex: 1;
+  background: #7a1c19; /* vermelho mais escuro */
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  /* centraliza verticalmente */
+  align-items: center;      /* centraliza horizontalmente */
+  padding: 40px;
+  text-align: center;
+}
+
+.welcome h2 {
+  margin-bottom: 15px;
+  font-size: 26px;
+}
+
+.welcome p {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.welcome .btn-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 80%;
+  margin-top: 20px;
+}
+
+.welcome button {
+  padding: 12px;
+  border: none;
+  background: #fff;
+  color: #7a1c19;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.welcome button:hover {
+  background: #f2f2f2;
+}
+
+.btn-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn-group button {
+  padding: 10px 20px;
+  border: none;
+  background: #fff;
+  color: #7a1c19;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btn-group button:hover {
+  background: #eee;
+}
+
+/* Lado direito */
+.form-side {
+  flex: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  /* centraliza verticalmente */
+  align-items: center;      /* centraliza horizontalmente */
+  text-align: center;
+}
+
+.logo img {
+  max-width: 120px;
+  margin-bottom: 20px;
+}
+
+.form-side h2 {
+  margin-bottom: 10px;
+  font-size: 24px;
+  color: #7a1c19;
+}
+
+.form-side h3 {
+  margin-bottom: 20px;
+  font-size: 16px;
+  font-weight: normal;
+  color: #444;
+}
+
+.form-side form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 300px;
+}
+
+.form-side input {
+  margin: 10px 0;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.form-side button {
+  margin-top: 15px;
+  padding: 12px;
+  border: none;
+  background: #7a1c19;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.form-side button:hover {
+  background: #5e1412;
+}
+
+.form-side p {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* Área de logos (ícones sociais) */
+.social-login {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.social-login img {
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.social-login img:hover {
+  transform: scale(1.1);
+}
