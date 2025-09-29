@@ -59,52 +59,60 @@ if ($result_entrega->num_rows > 0) {
 
 // 4. LÓGICA DE PROCESSAMENTO DE ENTREGA (COM UPLOAD DE ARQUIVO)
 if (isset($_POST['fazer_entrega'])) {
-    $caminho_arquivo = trim($_POST['caminho_arquivo'] ?? ''); // Texto/link da textarea
-    $arquivo_upload = $_FILES['arquivo_entrega'] ?? null; // Arquivo enviado
-    $caminho_final = $caminho_arquivo; // Valor padrão: o texto da textarea
-
-    // Verifica se houve um upload de arquivo válido
-    if ($arquivo_upload && $arquivo_upload['error'] === UPLOAD_ERR_OK) {
-        $upload_dir = 'uploads/'; // O diretório onde os arquivos serão salvos (certifique-se que existe)
+    
+    // 1. Recebe o conteúdo do campo de texto/link (Este é o valor PADRÃO)
+    // Se o aluno não digitou nada no campo de texto, será uma string vazia.
+    $caminho_arquivo_final = $_POST['caminho_arquivo'] ?? '';
+    
+    // 2. Tenta processar o UPLOAD DE ARQUIVO (Prioridade sobre o campo de texto)
+    if (isset($_FILES['arquivo_entrega']) && $_FILES['arquivo_entrega']['error'] === UPLOAD_ERR_OK) {
+        
+        $upload_dir = 'uploads/';
+        // Garante que o diretório 'uploads' existe (Você precisa ter permissão de escrita)
         if (!is_dir($upload_dir)) {
             mkdir($upload_dir, 0777, true);
         }
+        
+        // CUIDADO DE SEGURANÇA: Cria um nome de arquivo único para evitar colisões e malwares
+        $file_name = uniqid('entrega_') . '' . $aluno_id . '' . $atividade_id;
+        $file_ext = strtolower(pathinfo($_FILES['arquivo_entrega']['name'], PATHINFO_EXTENSION));
+        $file_path = $upload_dir . $file_name . '.' . $file_ext;
 
-        $file_name = uniqid('entrega_') . '_' . basename($arquivo_upload['name']);
-        $target_file = $upload_dir . $file_name;
-
-        if (move_uploaded_file($arquivo_upload['tmp_name'], $target_file)) {
-            // Se o upload for bem sucedido, o caminho final é o caminho do arquivo
-            $caminho_final = $target_file; 
+        if (move_uploaded_file($_FILES['arquivo_entrega']['tmp_name'], $file_path)) {
+            // *PONTO CHAVE:* Se o upload for BEM-SUCEDIDO, o caminho do arquivo local
+            // sobrescreve o conteúdo do campo de texto.
+            $caminho_arquivo_final = $file_path; 
         } else {
-            // Se falhar no upload
-            header("Location: entregar_atividade.php?id={$atividade_id}&error=" . urlencode("Erro ao mover o arquivo de upload."));
-            exit();
+            // Se falhar, exibe a mensagem de erro e usa o valor do campo de texto como fallback.
+            $error_message = "Erro ao mover o arquivo enviado. Tente novamente ou use um link.";
         }
-    } 
+    }        
     
     // Se não há arquivo de upload E o campo de texto/link está vazio, impede a entrega
-    if (empty($caminho_final)) {
-        header("Location: entregar_atividade.php?id={$atividade_id}&error=" . urlencode("A entrega deve conter um arquivo OU um link/texto."));
-        exit();
-    }
+    if (empty($caminho_arquivo_final)) {
+    header("Location: entregar_atividade.php?id={$atividade_id}&error=" . urlencode("A entrega deve conter um arquivo OU um link/texto."));
+    exit();
+}
 
 
     $data_entrega = date('Y-m-d H:i:s');
     $status = 'Pendente'; // Novo status: Pendente de correção
     
     if ($entrega) {
-        // --- UPDATE (Atualizar Entrega) ---
-        $stmt_update = $conn->prepare("UPDATE entregas SET caminho_arquivo = ?, data_entrega = ?, status = ? WHERE id_entrega = ?");
-        $stmt_update->bind_param("sssi", $caminho_final, $data_entrega, $status, $entrega['id_entrega']);
+    $stmt = $conn->prepare("UPDATE entregas SET caminho_arquivo = ?, data_entrega = ?, status = ? WHERE id_entrega = ?");
+    $stmt->bind_param("sssi", $caminho_arquivo_final, $data_entrega, $status, $entrega['id_entrega']);
+} else {
+    $stmt = $conn->prepare("INSERT INTO entregas (atividades_id, aluno_id, caminho_arquivo, status) VALUES (?, ?, ?, 'Entregue')");
+    $stmt->bind_param("iis", $atividade_id, $aluno_id, $caminho_arquivo_final);
+}
 
-        if ($stmt_update->execute()) {
-            header("Location: entregar_atividade.php?id={$atividade_id}&success=" . urlencode("Entrega atualizada com sucesso!"));
-            exit();
-        } else {
-            $error_message = "Erro ao atualizar entrega: " . $stmt_update->error;
-        }
 
+       if ($stmt->execute()) {
+         header("Location: user_page.php?success=" . urlencode("Entrega realizada/atualizada com sucesso!"));
+         exit();
+    } else {
+         $error_message = "Erro ao salvar a entrega no banco de dados: " . $stmt->error;
+    }
     } else {
         // --- INSERT (Primeira Entrega) ---
         $stmt_insert = $conn->prepare("INSERT INTO entregas (atividades_id, aluno_id, caminho_arquivo, data_entrega, status) VALUES (?, ?, ?, ?, ?)");
@@ -117,7 +125,6 @@ if (isset($_POST['fazer_entrega'])) {
             $error_message = "Erro ao entregar atividade: " . $stmt_insert->error;
         }
     }
-}
 
 // Variáveis para a visualização
 $data_entrega_ativ = strtotime($atividade['data_entrega']);
@@ -258,7 +265,7 @@ $pode_editar = ($entrega && $entrega['status'] != 'Corrigido' && !$prazo_excedid
 
             <p style="font-weight: bold; margin-bottom: 15px;">Nova Entrega (Você pode enviar um arquivo OU um link/texto)</p>
 
-            <form action="entregar_atividade.php?id=<?= $atividade_id; ?>" method="post" 
+            <form action="entregar_atividade.php?id=<?= $atividade_id; ?>" method="post" enctype="multipart/form-data"
                 class="<?= !$pode_editar ? 'disabled-form' : ''; ?>" **enctype="multipart/form-data"**>
                 
                 <input type="hidden" name="atividade_id" value="<?= htmlspecialchars($atividade['id_atividade']); ?>">
